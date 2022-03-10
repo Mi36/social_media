@@ -2,11 +2,26 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
 import Logo from "../assets/logo.png";
+import { client } from "../client";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const responseGoogle = (response) => {
-    console.log(response);
+    localStorage.setItem("user", JSON.stringify(response.profileObj));
+    const { name, googleId, imageUrl } = response.profileObj;
+    const doc = {
+      _id: googleId,
+      _type: "user",
+      userName: name,
+      image: imageUrl,
+    };
+    client.createIfNotExists(doc).then(() => {
+      navigate("/", { replace: true });
+    });
   };
+
   return (
     <div className="flex justify-start items-center flex-col h-screen ">
       <div className="relative w-full h-full">
