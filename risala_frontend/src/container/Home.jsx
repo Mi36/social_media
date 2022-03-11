@@ -6,7 +6,7 @@ import logo from "../assets/logo.png";
 import { Link, Route, Routes } from "react-router-dom";
 import { userQuery } from "../utils/data";
 import { client } from "../client";
-import Pin from "./Pin";
+import Pins from "./Pins";
 
 function Home() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -31,7 +31,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="text-3xl font-bold">
+    <div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out">
       <div className="hidden md:flex h-screen flex-initial">
         <SideBar user={user && user} />
       </div>
@@ -50,15 +50,15 @@ function Home() {
           </Link>
         </div>
         {toggleSidebar && (
-          <div className="fixed w-4/5  h-full overflow-y-auto z-10 animate-slide-in bg-slate-500">
-            <div className="absolute w-full flex justify-end items-center p-2">
+          <div className="fixed w-3/5  h-full overflow-y-auto z-10 animate-slide-in bg-slate-500">
+            <div className="absolute w-full flex justify-end items-center p-6">
               <AiFillCloseCircle
                 fontSize={30}
                 className="cursor-pointer"
                 onClick={() => setToggleSidebar(false)}
               />
-              <SideBar user={user && user} closeToggle={setToggleSidebar} />
             </div>
+            <SideBar user={user && user} closeToggle={setToggleSidebar} />
           </div>
         )}
       </div>
@@ -67,7 +67,7 @@ function Home() {
         <Routes>
           <Route path="/user-profile/:userId" element={<UserProfile />} />
           {/* forward slashinu shesham vere enthenkilum vannal ithilek */}
-          <Route path="/*" element={<Pin user={user && user} />} />
+          <Route path="/*" element={<Pins user={user && user} />} />
         </Routes>
       </div>
     </div>
