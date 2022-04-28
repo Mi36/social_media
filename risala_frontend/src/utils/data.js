@@ -29,8 +29,9 @@ export const searchQuery = (searchTerm) => {
           }`;
   return query;
 };
-//it will give back list of all persons saved that perticular post
+// save[]: it will give back list of all persons saved that perticular post
 
+//it will fetch all the pins
 export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
   image{
     asset->{

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { client } from "../client";
 import { feedQuery, searchQuery } from "../utils/data";
 import Spinner from "./Spinner";
+import MasonryLayout from "./MasonryLayout";
 
 const Feed = () => {
   const [loading, setloading] = useState(true);
@@ -20,7 +21,6 @@ const Feed = () => {
     } else {
       client.fetch(feedQuery).then((data) => {
         setpins(data);
-
         setloading(false);
       });
     }
@@ -28,8 +28,7 @@ const Feed = () => {
   console.log(pins);
 
   if (loading) return <Spinner message="we are adding new ideas" />;
-
-  return <div>Feed</div>;
+  return <div>{pins && <MasonryLayout pins={pins} />}</div>;
 };
 
 export default Feed;
